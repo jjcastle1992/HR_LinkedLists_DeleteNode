@@ -76,10 +76,40 @@ void free_singly_linked_list(SinglyLinkedListNode* node) {
  *
  */
 
-SinglyLinkedListNode* deleteNode(SinglyLinkedListNode* llist, int position) {
+SinglyLinkedListNode* deleteNode(SinglyLinkedListNode* head, int position) {
     //Delete a node at a given position and return reference to the head.
     //If head is deleted, will return null
-    
+    SinglyLinkedListNode *currentNode = head;
+    if (position == 0) {
+        //Set position-> next node address to current address.
+        if (currentNode->next) {
+            currentNode->next = currentNode;
+            currentNode = nullptr;
+            delete currentNode;
+        }
+        else {
+            //tail node
+            currentNode = nullptr;
+            delete currentNode;
+        }
+    }
+    else {
+        //Traverse through Linked List position iterations
+        for (int i = 0; i <= position; i++) {
+            if (currentNode->next) {
+                //check for tail case
+                if ((position == 1) && (!currentNode->next->next)) {
+                    currentNode->next = nullptr;
+                    delete currentNode->next;
+                }
+                else {
+                    currentNode->next;
+                }
+            }
+        }
+    }
+
+    return head;
 }
 
 int main()
