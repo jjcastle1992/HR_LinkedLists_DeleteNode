@@ -80,43 +80,31 @@ SinglyLinkedListNode* deleteNode(SinglyLinkedListNode* head, int position) {
     //Delete a node at a given position and return reference to the head.
     //If head is deleted, will return null
     SinglyLinkedListNode *currentNode = head;
-    bool nodeDeleted = false;
-    while (!nodeDeleted) {
-        if (position == 0) {
-            //Set position-> next node address to current address.
-            if (currentNode->next) {
-                currentNode->next = currentNode;
-                currentNode = nullptr;
-                delete currentNode;
-                nodeDeleted = true;
-            }
-            else {
-                //tail node
-                currentNode = nullptr;
-                delete currentNode;
-                nodeDeleted = true;
-            }
+    if (position == 0) {
+        //Set position-> next node address to current address.
+        if (currentNode->next) {
+            currentNode->next = currentNode;
+            currentNode = nullptr;
+            delete currentNode;
         }
-        else if (position == 1) {
-            //Check to see if node to the right of current node is a tail
-            //If it is, perform deletion here.
-            if (!currentNode->next->next) {
-                delete currentNode->next;
-                currentNode->next = nullptr;
-                nodeDeleted = true;
-            }
+        else {
+            //tail node
+            currentNode = nullptr;
+            delete currentNode;
         }
-        //else traverse through linked list
-        for (int i = 0; i <= position; i++) {
-            if (currentNode->next) {
-                deleteNode(currentNode->next, (position - 1));
-            }
-        }
+    }
+    else if (position == 1 && (!currentNode->next->next)) {
+        //Check to see if node to the right of current node is a tail
+        //If it is, perform deletion here.
+        delete currentNode->next;
+        currentNode->next = nullptr;
+    }
+    //else traverse through linked list
+    else {
+        currentNode = deleteNode(currentNode->next, position - 1);
     }
     return head;
 }
-
-
 
 int main()
 {
